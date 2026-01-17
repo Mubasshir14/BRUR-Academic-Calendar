@@ -49,9 +49,7 @@ export default function WelcomeAnimation({ onFinish }) {
 
         {/* ✅ BRUR Logo */}
         <Image
-          source={{
-            uri: "https://i.ibb.co.com/X9Pny3n/BRUR-Logo-svg.png",
-          }}
+          source={require("../assets/brur-logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />

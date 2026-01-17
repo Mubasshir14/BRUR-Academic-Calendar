@@ -1,35 +1,31 @@
 // import React, { useState } from "react";
-// import { View, Text, StyleSheet, Modal, Pressable } from "react-native";
+// import { View, Text, StyleSheet, Modal, Pressable, Image } from "react-native";
 // import { Calendar } from "react-native-calendars";
 // import colors from "../theme/colors";
 // import { holidays } from "../data/holidays";
-// import { Image } from "react-native";
+// import NextHolidayCard from "./NextHolidayCard";
+// import HolidayListModal from "./HolidayListModal";
 
 // export default function CalendarScreen() {
 //   const [selectedHoliday, setSelectedHoliday] = useState(null);
+//   const [showHolidayList, setShowHolidayList] = useState(false);
 
 //   const today = new Date().toISOString().split("T")[0];
 
-//   // 🔥 Custom Day Renderer
-//   const renderDay = ({ date, state }) => {
+//   const renderDay = ({ date }) => {
 //     const dateString = date.dateString;
-//     const dayOfWeek = new Date(dateString).getDay(); // 0=Sun ... 5=Fri, 6=Sat
+//     const dayOfWeek = new Date(dateString).getDay();
 
 //     let bgColor = "transparent";
 //     let textColor = colors.textDark;
 
-//     // 🔵 TODAY (highest priority)
 //     if (dateString === today) {
 //       bgColor = colors.todayBlueBg;
 //       textColor = colors.todayBlueText;
-//     }
-//     // 🟢 OFFICIAL HOLIDAY
-//     else if (holidays[dateString]) {
+//     } else if (holidays[dateString]) {
 //       bgColor = colors.holidayGreen;
 //       textColor = "#FFFFFF";
-//     }
-//     // 🔴 FRIDAY (5) & SATURDAY (6)
-//     else if (dayOfWeek === 5 || dayOfWeek === 6) {
+//     } else if (dayOfWeek === 5 || dayOfWeek === 6) {
 //       textColor = colors.weekendRed;
 //     }
 
@@ -55,15 +51,18 @@
 
 //   return (
 //     <View style={styles.container}>
-//       <View style={styles.header}>
+//       {/* Header */}
+//       <View style={styles.headerCard}>
 //         <Image
-//           source={{ uri: "https://i.ibb.co.com/X9Pny3n/BRUR-Logo-svg.png" }}
+//           source={require("../assets/brur-logo.png")}
 //           style={styles.logo}
 //           resizeMode="contain"
 //         />
 //         <Text style={styles.title}>BRUR Academic Calendar</Text>
+//         <Text style={styles.subtitle}>Begum Rokeya University, Rangpur</Text>
 //       </View>
 
+//       {/* Calendar */}
 //       <View style={styles.card}>
 //         <Calendar
 //           dayComponent={renderDay}
@@ -84,6 +83,21 @@
 //         <Legend color={colors.holidayGreen} label="Official Holiday" />
 //         <Legend color={colors.weekendRed} label="Friday & Saturday" />
 //       </View>
+//       {/* View All Holidays Button */}
+//       <Pressable
+//         style={styles.allHolidayBtn}
+//         onPress={() => setShowHolidayList(true)}
+//       >
+//         <Text style={styles.allHolidayText}>📜 View All Holidays</Text>
+//       </Pressable>
+
+//       <HolidayListModal
+//         visible={showHolidayList}
+//         onClose={() => setShowHolidayList(false)}
+//       />
+
+//       {/* ✅ Next Holiday */}
+//       <NextHolidayCard />
 
 //       {/* Modal */}
 //       <Modal visible={!!selectedHoliday} transparent animationType="fade">
@@ -97,9 +111,7 @@
 //               style={styles.closeBtn}
 //               onPress={() => setSelectedHoliday(null)}
 //             >
-//               <Text style={{ color: "#fff", fontFamily: "Arima_600SemiBold" }}>
-//                 Close
-//               </Text>
+//               <Text style={styles.closeText}>Close</Text>
 //             </Pressable>
 //           </View>
 //         </View>
@@ -120,12 +132,18 @@
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     paddingTop: 45,
+//     paddingTop: 50,
 //     backgroundColor: colors.background,
 //   },
-//   header: {
+
+//   headerCard: {
+//     marginHorizontal: 16,
+//     marginBottom: 14,
+//     paddingVertical: 14,
+//     backgroundColor: colors.card,
+//     borderRadius: 18,
 //     alignItems: "center",
-//     marginBottom: 16,
+//     elevation: 3,
 //   },
 
 //   logo: {
@@ -138,48 +156,54 @@
 //     fontSize: 22,
 //     fontFamily: "Arima_700Bold",
 //     color: colors.textDark,
-//     textAlign: "center",
+//   },
+
+//   subtitle: {
+//     fontSize: 13,
+//     fontFamily: "Arima_400Regular",
+//     color: colors.textLight,
 //   },
 
 //   card: {
 //     marginHorizontal: 16,
-//     borderRadius: 18,
+//     borderRadius: 20,
 //     backgroundColor: colors.card,
-//     padding: 12,
-//     elevation: 4,
+//     padding: 14,
+//     elevation: 3,
 //   },
 
 //   dayContainer: {
-//     width: 36,
-//     height: 36,
-//     borderRadius: 10,
+//     width: 38,
+//     height: 38,
+//     borderRadius: 12,
 //     justifyContent: "center",
 //     alignItems: "center",
 //   },
+
 //   dayText: {
 //     fontSize: 14,
 //     fontFamily: "Arima_600SemiBold",
 //   },
 
 //   legend: {
-//     marginTop: 20,
-//     paddingHorizontal: 20,
-//     alignItems: "center",
+//     marginTop: 18,
+//     flexDirection: "row",
+//     justifyContent: "center",
+//     gap: 18,
 //   },
 
 //   legendItem: {
 //     flexDirection: "row",
 //     alignItems: "center",
-//     justifyContent: "center",
-//     marginBottom: 8,
 //   },
 
 //   legendDot: {
 //     width: 14,
 //     height: 14,
 //     borderRadius: 7,
-//     marginRight: 10,
+//     marginRight: 8,
 //   },
+
 //   legendText: {
 //     fontSize: 14,
 //     fontFamily: "Arima_500Medium",
@@ -192,12 +216,14 @@
 //     justifyContent: "center",
 //     alignItems: "center",
 //   },
+
 //   modalBox: {
-//     width: "80%",
+//     width: "82%",
 //     backgroundColor: "#fff",
-//     borderRadius: 16,
-//     padding: 20,
+//     borderRadius: 20,
+//     padding: 22,
 //   },
+
 //   modalTitle: {
 //     fontSize: 18,
 //     fontFamily: "Arima_700Bold",
@@ -211,25 +237,59 @@
 //   },
 
 //   closeBtn: {
-//     marginTop: 14,
+//     marginTop: 18,
 //     backgroundColor: colors.primary,
-//     paddingVertical: 10,
-//     borderRadius: 10,
+//     paddingVertical: 12,
+//     borderRadius: 14,
 //     alignItems: "center",
 //   },
+
+//   closeText: {
+//     color: "#fff",
+//     fontFamily: "Arima_600SemiBold",
+//   },
+//   allHolidayBtn: {
+//   marginTop: 16,
+//   marginHorizontal: 16,
+//   backgroundColor: "#FFF3E0",
+//   paddingVertical: 14,
+//   borderRadius: 18,
+//   alignItems: "center",
+//   elevation: 3,
+// },
+
+// allHolidayText: {
+//   fontSize: 15,
+//   fontFamily: "Arima_600SemiBold",
+//   color: "#EF6C00",
+// },
+
 // });
 
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Modal, Pressable, Image } from "react-native";
 import { Calendar } from "react-native-calendars";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 import colors from "../theme/colors";
 import { holidays } from "../data/holidays";
+
 import NextHolidayCard from "./NextHolidayCard";
 import HolidayListModal from "./HolidayListModal";
+import AddReminderModal from "../screens/AddReminderModal";
+import ReminderListModal from "./ReminderListModal";
 
 export default function CalendarScreen() {
   const [selectedHoliday, setSelectedHoliday] = useState(null);
   const [showHolidayList, setShowHolidayList] = useState(false);
+  const [showReminderList, setShowReminderList] = useState(false);
+
+  // 🔔 Reminder states
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [tempDate, setTempDate] = useState(null);
+  const [triggerDate, setTriggerDate] = useState(null);
+  const [showReminderModal, setShowReminderModal] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -275,7 +335,7 @@ export default function CalendarScreen() {
       {/* Header */}
       <View style={styles.headerCard}>
         <Image
-          source={{ uri: "https://i.ibb.co.com/X9Pny3n/BRUR-Logo-svg.png" }}
+          source={require("../assets/brur-logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -304,7 +364,8 @@ export default function CalendarScreen() {
         <Legend color={colors.holidayGreen} label="Official Holiday" />
         <Legend color={colors.weekendRed} label="Friday & Saturday" />
       </View>
-      {/* View All Holidays Button */}
+
+      {/* View All Holidays */}
       <Pressable
         style={styles.allHolidayBtn}
         onPress={() => setShowHolidayList(true)}
@@ -317,10 +378,9 @@ export default function CalendarScreen() {
         onClose={() => setShowHolidayList(false)}
       />
 
-      {/* ✅ Next Holiday */}
       <NextHolidayCard />
 
-      {/* Modal */}
+      {/* 🎉 Holiday Modal */}
       <Modal visible={!!selectedHoliday} transparent animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalBox}>
@@ -337,6 +397,88 @@ export default function CalendarScreen() {
           </View>
         </View>
       </Modal>
+
+      {/* 🔵 FAB – Add Reminder */}
+      <Pressable style={styles.fab} onPress={() => setShowDatePicker(true)}>
+        <Text style={styles.fabText}>⏰</Text>
+      </Pressable>
+
+      {/* 🔵 FAB – Reminder List */}
+      <Pressable
+        style={[styles.fab, { left: 20 }]}
+        onPress={() => setShowReminderList(true)}
+      >
+        <Text style={styles.fabText}>📋</Text>
+      </Pressable>
+
+      <ReminderListModal
+        visible={showReminderList}
+        onClose={() => setShowReminderList(false)}
+      />
+
+      {/* 📅 Date Picker */}
+      {showDatePicker && (
+        <DateTimePicker
+          value={new Date()}
+          mode="date"
+          display="calendar"
+          onChange={(e, date) => {
+            setShowDatePicker(false);
+            if (date) {
+              setTempDate(date);
+              setShowTimePicker(true);
+            }
+          }}
+        />
+      )}
+
+      {/* ⏰ Time Picker */}
+      {showTimePicker && (
+        <DateTimePicker
+          value={new Date()}
+          mode="time"
+          display="clock"
+          onChange={(e, time) => {
+            setShowTimePicker(false);
+
+            if (!time || !tempDate) return;
+
+            // User selected date + time
+            const selectedDateTime = new Date(
+              tempDate.getFullYear(),
+              tempDate.getMonth(),
+              tempDate.getDate(),
+              time.getHours(),
+              time.getMinutes(),
+              0,
+              0,
+            );
+
+            const now = new Date();
+
+            // ✅ Buffer = 30 seconds
+            const BUFFER_MS = 30 * 1000;
+
+            if (selectedDateTime.getTime() <= now.getTime() + BUFFER_MS) {
+              alert(
+                "Please select a time a bit later (at least 30 seconds in the future)",
+              );
+              return;
+            }
+
+            // ✅ Perfect — exactly what you want
+            setTriggerDate(selectedDateTime);
+            setShowReminderModal(true);
+          }}
+        />
+      )}
+
+      {/* 🔔 Add Reminder Modal */}
+      <AddReminderModal
+        visible={showReminderModal}
+        triggerDate={triggerDate}
+        onClose={() => setShowReminderModal(false)}
+      />
     </View>
   );
 }
@@ -469,20 +611,39 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Arima_600SemiBold",
   },
+
   allHolidayBtn: {
-  marginTop: 16,
-  marginHorizontal: 16,
-  backgroundColor: "#FFF3E0",
-  paddingVertical: 14,
-  borderRadius: 18,
-  alignItems: "center",
-  elevation: 3,
-},
+    marginTop: 16,
+    marginHorizontal: 16,
+    backgroundColor: "#FFF3E0",
+    paddingVertical: 14,
+    borderRadius: 18,
+    alignItems: "center",
+    elevation: 3,
+  },
 
-allHolidayText: {
-  fontSize: 15,
-  fontFamily: "Arima_600SemiBold",
-  color: "#EF6C00",
-},
+  allHolidayText: {
+    fontSize: 15,
+    fontFamily: "Arima_600SemiBold",
+    color: "#EF6C00",
+  },
 
+  fab: {
+    position: "absolute",
+    bottom: 50,
+    right: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 8,
+    zIndex: 999,
+  },
+
+  fabText: {
+    color: "#fff",
+    fontSize: 24,
+  },
 });

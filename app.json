@@ -3,15 +3,27 @@
     "name": "BRURCalendar",
     "slug": "brurcalendar",
     "version": "1.0.0",
+    "icon": "./src/assets/brur-logo.png",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
-      }
+      },
+      "package": "com.brur.calendar",
+      "permissions": ["NOTIFICATIONS"]
     },
     "web": {
       "output": "static"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "29f7322d-e962-4769-9c97-f4860770dcfe"
+      }
+    },
+    "owner": "mubasshir_al_kasshaf",
+    "plugins": [
+      "@react-native-community/datetimepicker"
+    ]
   }
 }
