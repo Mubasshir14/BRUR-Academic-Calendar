@@ -28,8 +28,14 @@ export async function saveReminder(reminder) {
   await AsyncStorage.setItem(KEY, JSON.stringify(updated));
 }
 
+// export async function deleteReminder(id) {
+//   const existing = await getReminders();
+//   const updated = existing.filter(r => r.id !== id);
+//   await AsyncStorage.setItem(KEY, JSON.stringify(updated));
+// }
+
 export async function deleteReminder(id) {
   const existing = await getReminders();
-  const updated = existing.filter(r => r.id !== id);
+  const updated = existing.filter((r) => String(r.id) !== String(id));
   await AsyncStorage.setItem(KEY, JSON.stringify(updated));
 }
