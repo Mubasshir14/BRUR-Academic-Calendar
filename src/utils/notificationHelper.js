@@ -1,38 +1,3 @@
-// import * as Notifications from "expo-notifications";
-
-// export async function scheduleReminderNotification({
-//   title,
-//   description,
-//   triggerDate, // 🔴 Date object (date + time)
-// }) {
-//   if (!(triggerDate instanceof Date)) {
-//     throw new Error("triggerDate must be a Date object");
-//   }
-
-//   if (triggerDate <= new Date()) {
-//     throw new Error("Trigger time must be in the future");
-//   }
-
-//   return await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title,
-//       body: description || "You have a reminder",
-//       sound: "default",
-//     },
-//     trigger: {
-//       date: triggerDate,
-//       channelId: "reminder",
-//     },
-//   });
-// }
-
-// export async function cancelReminderNotification(notificationId) {
-//   if (notificationId) {
-//     await Notifications.cancelScheduledNotificationAsync(
-//       notificationId
-//     );
-//   }
-// }
 
 import * as Notifications from "expo-notifications";
 

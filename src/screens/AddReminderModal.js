@@ -57,7 +57,6 @@ export default function AddReminderModal({
 
       onClose();
     } catch (err) {
-      console.log("❌ Reminder error:", err);
       alert(err.message);
     }
   };
@@ -74,6 +73,7 @@ export default function AddReminderModal({
 
           <TextInput
             placeholder="Title *"
+            placeholderTextColor="#9E9E9E"
             value={title}
             onChangeText={setTitle}
             style={styles.input}
@@ -81,6 +81,7 @@ export default function AddReminderModal({
 
           <TextInput
             placeholder="Description (optional)"
+            placeholderTextColor="#9E9E9E"
             value={description}
             onChangeText={setDescription}
             style={[styles.input, { height: 80 }]}
