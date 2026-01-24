@@ -8,8 +8,8 @@ export async function scheduleReminderNotification({
 }) {
   const now = new Date();
 
-  // 🔴 HARD SAFETY CHECK (LAST GUARD)
-  const BUFFER_MS = 60 * 1000; // 1 minute
+ 
+  const BUFFER_MS = 60 * 1000;
 
   if (triggerDate.getTime() <= now.getTime() + BUFFER_MS) {
     throw new Error(
@@ -24,8 +24,8 @@ export async function scheduleReminderNotification({
       sound: "default",
     },
     trigger: {
-      type: "date", // 🔴 THIS IS THE KEY
-      date: triggerDate, // future Date object
+      type: "date", 
+      date: triggerDate, 
       channelId: "reminder",
     },
   });

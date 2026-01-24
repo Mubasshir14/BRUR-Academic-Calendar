@@ -86,7 +86,7 @@ export default function CalendarScreen() {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>BRUR Calendar</Text>
+          <Text style={styles.title}>Academic Days</Text>
           <Text style={styles.subtitle}>
             Begum Rokeya University, Rangpur
           </Text>

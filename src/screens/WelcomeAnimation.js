@@ -55,7 +55,7 @@ export default function WelcomeAnimation({ onFinish }) {
         />
 
         <Text style={styles.subtitle}>
-          BRUR Academic Calendar
+          BRUR Academic Days
         </Text>
 
         <Text style={styles.message}>
